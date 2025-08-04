@@ -58,7 +58,7 @@ public class A1GUI extends javax.swing.JFrame {
     private TaskManager taskManager;
 
     public A1GUI() {
-
+        System.out.println(getClass().getResource("/icon/angle-left.png")); // Debug path
         initComponents();  // Ensure components are initialized first
         taskManager = new TaskManager();
         onStartup();
@@ -162,14 +162,10 @@ public class A1GUI extends javax.swing.JFrame {
     ////////////////////////---------UpcomingDates----------////////////////
     
     
-    
-    
-    
-    
-    
-    
-    
-    
+        
+    ////////////////////////---------UpcomingDates----------////////////////
+
+        
     
     ////////////////////////---------Registration----------////////////////
     private void MarkPresent() {
@@ -898,7 +894,6 @@ public class A1GUI extends javax.swing.JFrame {
             .addGap(0, 571, Short.MAX_VALUE)
         );
 
-        dialogAddUpcomingDate.setPreferredSize(new java.awt.Dimension(439, 355));
         dialogAddUpcomingDate.getContentPane().setLayout(null);
 
         jLabel5.setText("Grade");
@@ -955,7 +950,7 @@ public class A1GUI extends javax.swing.JFrame {
         );
 
         dialogAddUpcomingDate.getContentPane().add(jPanel8);
-        jPanel8.setBounds(0, 0, 408, 200);
+        jPanel8.setBounds(0, 0, 0, 200);
 
         jBTConfirmAddDate.setText("Add");
         jBTConfirmAddDate.addActionListener(new java.awt.event.ActionListener() {
@@ -982,7 +977,7 @@ public class A1GUI extends javax.swing.JFrame {
         );
 
         dialogAddUpcomingDate.getContentPane().add(jPanel10);
-        jPanel10.setBounds(0, 250, 408, 70);
+        jPanel10.setBounds(0, 250, 0, 70);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Get it!");
@@ -1029,7 +1024,7 @@ public class A1GUI extends javax.swing.JFrame {
         labelIconShowHide.setBackground(new java.awt.Color(255, 204, 102));
         labelIconShowHide.setForeground(new java.awt.Color(255, 255, 255));
         labelIconShowHide.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelIconShowHide.setIcon(new javax.swing.ImageIcon(getClass().getResource("/a1/icon/angle-right.png"))); // NOI18N
+        labelIconShowHide.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/angle-right.png"))); // NOI18N
         labelIconShowHide.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 labelIconShowHideMouseClicked(evt);
@@ -1072,7 +1067,7 @@ public class A1GUI extends javax.swing.JFrame {
         labelIconHome.setBackground(new java.awt.Color(255, 204, 102));
         labelIconHome.setForeground(new java.awt.Color(255, 255, 255));
         labelIconHome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelIconHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/a1/icon/home.png"))); // NOI18N
+        labelIconHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/home.png"))); // NOI18N
         labelIconHome.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 labelIconHomeMouseClicked(evt);
@@ -1104,7 +1099,7 @@ public class A1GUI extends javax.swing.JFrame {
 
         labelIconTime.setBackground(new java.awt.Color(255, 255, 51));
         labelIconTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelIconTime.setIcon(new javax.swing.ImageIcon(getClass().getResource("/a1/icon/user-time.png"))); // NOI18N
+        labelIconTime.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/user-time.png"))); // NOI18N
         iconTime.add(labelIconTime, java.awt.BorderLayout.CENTER);
 
         MenuBar.add(iconTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 50, -1));
@@ -1130,7 +1125,7 @@ public class A1GUI extends javax.swing.JFrame {
         iconLearners.setLayout(new java.awt.BorderLayout());
 
         labelIconLearners.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelIconLearners.setIcon(new javax.swing.ImageIcon(getClass().getResource("/a1/icon/child-head.png"))); // NOI18N
+        labelIconLearners.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/child-head.png"))); // NOI18N
         iconLearners.add(labelIconLearners, java.awt.BorderLayout.CENTER);
 
         MenuBar.add(iconLearners, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, -1, -1));
@@ -1156,7 +1151,7 @@ public class A1GUI extends javax.swing.JFrame {
         iconMarks.setLayout(new java.awt.BorderLayout());
 
         labelIconMarks.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelIconMarks.setIcon(new javax.swing.ImageIcon(getClass().getResource("/a1/icon/book-bookmark.png"))); // NOI18N
+        labelIconMarks.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/book-bookmark.png"))); // NOI18N
         iconMarks.add(labelIconMarks, java.awt.BorderLayout.CENTER);
 
         MenuBar.add(iconMarks, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, -1, -1));
@@ -1654,10 +1649,6 @@ public class A1GUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_iconHomeMouseEntered
 
-    private void labelIconShowHideMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelIconShowHideMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_labelIconShowHideMouseClicked
-
     private void iconShowHideMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconShowHideMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_iconShowHideMouseClicked
@@ -1791,6 +1782,10 @@ public class A1GUI extends javax.swing.JFrame {
        
       
     }//GEN-LAST:event_jBTConfirmAddDateActionPerformed
+
+    private void labelIconShowHideMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelIconShowHideMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_labelIconShowHideMouseClicked
 
     /**
      * @param args the command line arguments
