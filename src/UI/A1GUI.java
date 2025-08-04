@@ -766,6 +766,7 @@ public class A1GUI extends javax.swing.JFrame {
         jScrollPane7 = new javax.swing.JScrollPane();
         jTBLDates = new javax.swing.JTable();
         jBTNAddDate = new javax.swing.JButton();
+        jBTDeleteDate = new javax.swing.JButton();
         jPNLRight = new javax.swing.JPanel();
         jPNLTimetable = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -1477,6 +1478,7 @@ public class A1GUI extends javax.swing.JFrame {
 
         jPNLLeft.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 550, 515, -1));
 
+        jTBLDates.setForeground(new java.awt.Color(0, 0, 0));
         jTBLDates.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -1488,6 +1490,7 @@ public class A1GUI extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTBLDates.setSelectionForeground(new java.awt.Color(102, 102, 102));
         jScrollPane7.setViewportView(jTBLDates);
 
         jBTNAddDate.setText("Add Date");
@@ -1496,6 +1499,8 @@ public class A1GUI extends javax.swing.JFrame {
                 jBTNAddDateActionPerformed(evt);
             }
         });
+
+        jBTDeleteDate.setText("Remove");
 
         javax.swing.GroupLayout jPNLUpcomingDatesLayout = new javax.swing.GroupLayout(jPNLUpcomingDates);
         jPNLUpcomingDates.setLayout(jPNLUpcomingDatesLayout);
@@ -1507,6 +1512,8 @@ public class A1GUI extends javax.swing.JFrame {
                     .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPNLUpcomingDatesLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jBTDeleteDate)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBTNAddDate)))
                 .addContainerGap())
         );
@@ -1516,7 +1523,9 @@ public class A1GUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBTNAddDate)
+                .addGroup(jPNLUpcomingDatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBTNAddDate)
+                    .addComponent(jBTDeleteDate))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1851,6 +1860,7 @@ public class A1GUI extends javax.swing.JFrame {
     private javax.swing.JPanel iconShowHide;
     private javax.swing.JPanel iconTime;
     private javax.swing.JButton jBTConfirmAddDate;
+    private javax.swing.JButton jBTDeleteDate;
     private javax.swing.JButton jBTNAddDate;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
