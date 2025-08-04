@@ -81,7 +81,8 @@ public class UpcomingDateManager
         String sql = "INSERT INTO " + TABLE_NAME + " (grade, test_info, test_date) VALUES (?, ?, ?)";
 
         try (Connection conn = Connect.makeConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) 
+        {
 
             // Convert string to java.sql.Date
             java.util.Date parsed = new SimpleDateFormat("yyyy-MM-dd").parse(testDateStr);

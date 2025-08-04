@@ -1,6 +1,5 @@
 package UI;
 
-import Backend.InsertDeleteUpdate1;
 import Backend.Select;
 import Managers.RegistrationManager;
 import Managers.TaskManager;
@@ -34,6 +33,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -46,7 +47,7 @@ public class A1GUI extends javax.swing.JFrame {
     private JPanel activePanel = null;
     private final Color DEFAULT_COLOR = new Color(35, 45, 63); //  original background color
     private final Color ACTIVE_COLOR = new Color(25, 35, 53);  // A darker shade for active state
-
+    private List<UpcomingDates> upcomingDates_list;
     private File selectedFileTimetable;
     private boolean showingCompletedTasks = false; // Track the state of completed tasks visibility
 
@@ -58,7 +59,7 @@ public class A1GUI extends javax.swing.JFrame {
     private TaskManager taskManager;
 
     public A1GUI() {
-        System.out.println(getClass().getResource("/icon/angle-left.png")); // Debug path
+        // System.out.println(getClass().getResource("/icon/angle-left.png")); // Debug path ->Macbook issues on image runtime
         initComponents();  // Ensure components are initialized first
         taskManager = new TaskManager();
         onStartup();
@@ -142,29 +143,26 @@ public class A1GUI extends javax.swing.JFrame {
     ////////////////////////---------UpcomingDates----------////////////////
         private void loadDatesToTable() {
         UpcomingDateManager DM = new UpcomingDateManager();
-        List<UpcomingDates> list = DM.getDates();
+        upcomingDates_list = DM.getDates();
 
         String[] columnNames = {"ID", "Grade", "Test Info", "Test Date"};
 
         // Create table data
-        Object[][] data = new Object[list.size()][4];
-        for (int i = 0; i < list.size(); i++) {
-            UpcomingDates d = list.get(i);
+        Object[][] data = new Object[upcomingDates_list.size()][4];
+        for (int i = 0; i < upcomingDates_list.size(); i++) {
+            UpcomingDates d = upcomingDates_list.get(i);
             data[i][0] = d.getId();
             data[i][1] = d.getGrade();
             data[i][2] = d.getTest_info();
             data[i][3] = d.getTest_date();
         }
-        
+
         jTBLDates.setModel(new javax.swing.table.DefaultTableModel(data, columnNames));
     }
 
     ////////////////////////---------UpcomingDates----------////////////////
     
     
-        
-    ////////////////////////---------UpcomingDates----------////////////////
-
         
     
     ////////////////////////---------Registration----------////////////////
@@ -895,6 +893,8 @@ public class A1GUI extends javax.swing.JFrame {
             .addGap(0, 571, Short.MAX_VALUE)
         );
 
+        dialogAddUpcomingDate.setMinimumSize(new java.awt.Dimension(431, 334));
+        dialogAddUpcomingDate.setPreferredSize(new java.awt.Dimension(431, 334));
         dialogAddUpcomingDate.getContentPane().setLayout(null);
 
         jLabel5.setText("Grade");
@@ -951,7 +951,7 @@ public class A1GUI extends javax.swing.JFrame {
         );
 
         dialogAddUpcomingDate.getContentPane().add(jPanel8);
-        jPanel8.setBounds(0, 0, 0, 200);
+        jPanel8.setBounds(0, 0, 408, 200);
 
         jBTConfirmAddDate.setText("Add");
         jBTConfirmAddDate.addActionListener(new java.awt.event.ActionListener() {
@@ -978,7 +978,7 @@ public class A1GUI extends javax.swing.JFrame {
         );
 
         dialogAddUpcomingDate.getContentPane().add(jPanel10);
-        jPanel10.setBounds(0, 250, 0, 70);
+        jPanel10.setBounds(0, 250, 408, 70);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Get it!");
@@ -1501,6 +1501,11 @@ public class A1GUI extends javax.swing.JFrame {
         });
 
         jBTDeleteDate.setText("Remove");
+        jBTDeleteDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBTDeleteDateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPNLUpcomingDatesLayout = new javax.swing.GroupLayout(jPNLUpcomingDates);
         jPNLUpcomingDates.setLayout(jPNLUpcomingDatesLayout);
@@ -1771,30 +1776,48 @@ public class A1GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jBTNAddDateActionPerformed
 
     private void jBTConfirmAddDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBTConfirmAddDateActionPerformed
-       String test_grade = jSpinGrade.getValue().toString();
-       String test_date = jDCDate.getDateFormatString();
-       String test_info = jTXAInfo.getText();
-       
-       UpcomingDateManager man = new UpcomingDateManager();
-       if(man.addDate(test_grade, test_info, test_date))
-       {
-           JOptionPane.showMessageDialog(this, "Test Added Succesfully");
-           loadDatesToTable();
-           this.dispose();
-       }
-       else
-       {
-           JOptionPane.showMessageDialog(this, "Failed to add test.");
-       }
-       
-       
-       
-      
+        String test_grade = jSpinGrade.getValue().toString();
+        Date test_date = jDCDate.getDate();
+        String test_info = jTXAInfo.getText();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String test_date_string = sdf.format(test_date);
+
+        UpcomingDateManager man = new UpcomingDateManager();
+        if (man.addDate(test_grade, test_info, test_date_string)) {
+            JOptionPane.showMessageDialog(this, "Test Added Succesfully");
+            loadDatesToTable();
+            dialogAddUpcomingDate.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to add test.");
+        }
+
+
     }//GEN-LAST:event_jBTConfirmAddDateActionPerformed
 
     private void labelIconShowHideMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelIconShowHideMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_labelIconShowHideMouseClicked
+
+    private void jBTDeleteDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBTDeleteDateActionPerformed
+        UpcomingDateManager man = new UpcomingDateManager();
+        int selectedRow = jTBLDates.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(null, "Please select a date to delete first.");
+            return;
+        }
+
+        UpcomingDates selected = upcomingDates_list.get(selectedRow);
+        String idToDelete = selected.getId();
+
+        if (man.deleteDateById(idToDelete)) {
+            JOptionPane.showMessageDialog(this, "Date deleted successfully.");
+            loadDatesToTable(); // 🔁 Reload table after deletion
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to delete date.");
+        }
+    }//GEN-LAST:event_jBTDeleteDateActionPerformed
 
     /**
      * @param args the command line arguments
