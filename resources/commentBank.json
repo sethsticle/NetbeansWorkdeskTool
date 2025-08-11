@@ -1,0 +1,38 @@
+{
+  "patRatingResults": {
+    "1": "has worked diligently to achieve an outstanding result in the practical Robotics task.",
+    "2": "has worked hard to attain a very pleasing standard of work in the practical Robotics task.",
+    "3": "has produced a high standard of work in the practical Robotics component.",
+    "4": "has shown a good understanding of the knowledge required in the practical Robotics task.",
+    "5": "requires more effort to reach a higher standard in the Robotics practical activities."
+  },
+  "fatRatingResults": {
+    "1": "has maintained an excellent standard of work for the theory test.",
+    "2": "has achieved a commendable level of excellence in the theory test.",
+    "3": "has achieved a pleasing standard in the theory test.",
+    "4": "has achieved a satisfactory result in the theory test.",
+    "5": "has the potential to perform better in the theory tests next term."
+  },
+  "academicContentCurrent": {
+    "electronic circuits": "electronic circuits",
+    "Lego EV3 Robot coding": "Lego EV3 Robot coding",
+    "learning to code": "learning to code",
+    "using OneNote": "using OneNote",
+    "patterns and algorithms": "patterns and algorithms"
+  },
+  "academicContentNext": {
+    "electronic circuits": "electronic circuits",
+    "Lego EV3 Robot coding": "Lego EV3 Robot coding",
+    "learning to code": "learning to code",
+    "using OneNote": "using OneNote",
+    "patterns and algorithms": "patterns and algorithms"
+  },
+  "introPhrases": {
+    "A": "This term we have been working on",
+    "B": "We started the term with"
+  },
+  "endingPhrases": {
+    "A": "and look forward to continued progress next term.",
+    "B": "and hope to build on these skills moving forward."
+  }
+}

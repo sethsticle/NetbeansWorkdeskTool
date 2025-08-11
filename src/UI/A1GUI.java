@@ -158,6 +158,11 @@ public class A1GUI extends javax.swing.JFrame {
         }
 
         jTBLDates.setModel(new javax.swing.table.DefaultTableModel(data, columnNames));
+        //hiding the ID Column
+        jTBLDates.getColumnModel().getColumn(0).setMinWidth(0);
+        jTBLDates.getColumnModel().getColumn(0).setMaxWidth(0);
+        jTBLDates.getColumnModel().getColumn(0).setWidth(0);
+         //hiding the ID Column
     }
 
     ////////////////////////---------UpcomingDates----------////////////////
@@ -894,7 +899,6 @@ public class A1GUI extends javax.swing.JFrame {
         );
 
         dialogAddUpcomingDate.setMinimumSize(new java.awt.Dimension(431, 334));
-        dialogAddUpcomingDate.setPreferredSize(new java.awt.Dimension(431, 334));
         dialogAddUpcomingDate.getContentPane().setLayout(null);
 
         jLabel5.setText("Grade");
@@ -951,7 +955,7 @@ public class A1GUI extends javax.swing.JFrame {
         );
 
         dialogAddUpcomingDate.getContentPane().add(jPanel8);
-        jPanel8.setBounds(0, 0, 408, 200);
+        jPanel8.setBounds(0, 0, 0, 200);
 
         jBTConfirmAddDate.setText("Add");
         jBTConfirmAddDate.addActionListener(new java.awt.event.ActionListener() {
@@ -978,7 +982,7 @@ public class A1GUI extends javax.swing.JFrame {
         );
 
         dialogAddUpcomingDate.getContentPane().add(jPanel10);
-        jPanel10.setBounds(0, 250, 408, 70);
+        jPanel10.setBounds(0, 250, 0, 70);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Get it!");
@@ -1630,7 +1634,7 @@ public class A1GUI extends javax.swing.JFrame {
                         .addComponent(btnShowCompleted)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnDelete)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         jPNLRight.add(jPNLTasks);

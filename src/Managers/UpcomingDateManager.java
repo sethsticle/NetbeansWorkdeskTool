@@ -26,7 +26,7 @@ public class UpcomingDateManager
     
     public UpcomingDateManager(){
         dates = new ArrayList<>();
-        loadDates();
+        loadDates(1);
     }
     
     
@@ -34,10 +34,18 @@ public class UpcomingDateManager
         return dates;
     }
     
-    public void loadDates() {
+    public void loadDates(int sortOption) {
         dates.clear(); // Clear previous entries
-
-        String query = "SELECT * FROM " + TABLE_NAME + " ORDER BY grade ASC, test_date ASC";
+        String query;
+        
+        switch(sortOption){
+            case 1:  query = "SELECT * FROM " + TABLE_NAME + " ORDER BY grade ASC, test_date ASC";
+            break;
+            case 2:  query = "SELECT * FROM " + TABLE_NAME + " ORDER BY test_date ASC";
+            break;
+            default: query = "SELECT * FROM " + TABLE_NAME + " ORDER BY grade ASC, test_date ASC";
+        }
+        
         
         try (
              Connection conn = Connect.makeConnection();
