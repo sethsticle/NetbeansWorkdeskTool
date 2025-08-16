@@ -1,6 +1,7 @@
 package UI;
 
 import Backend.Select;
+import Comments.StudentReader;
 import Managers.RegistrationManager;
 import Managers.TaskManager;
 import Managers.UpcomingDateManager;
@@ -35,8 +36,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -50,7 +54,7 @@ public class A1GUI extends javax.swing.JFrame {
     private List<UpcomingDates> upcomingDates_list;
     private File selectedFileTimetable;
     private boolean showingCompletedTasks = false; // Track the state of completed tasks visibility
-
+    protected DefaultTableModel modelSubjectCommentLearnerView;
     private final int MAX_NOTES = 11;
     private int current_notes = 0;
 
@@ -70,6 +74,7 @@ public class A1GUI extends javax.swing.JFrame {
         loadStoredTimetable();
         loadIcon();
         loadDatesToTable();
+        loadSubjectCommentLearnerViewTable();
         displayTasks(false);
         btnShowCompleted.setText("Show");
         btnDelete.setVisible(false);
@@ -109,11 +114,13 @@ public class A1GUI extends javax.swing.JFrame {
         panels.put("home", contentPanelHomePage);
         panels.put("registration", contentPanelRegistrationPage);
         panels.put("classList", contentPanelClassLists);
+        panels.put("subjectComments", contentPanelSubjectComments);
         // Add other panels as needed
 
         contentPanelHomePage.setVisible(true);
         contentPanelRegistrationPage.setVisible(false);
         contentPanelClassLists.setVisible(false);
+        contentPanelSubjectComments.setVisible(false);
 
         // Set Home as the default active panel
         setActivePanel(iconHome);
@@ -162,14 +169,27 @@ public class A1GUI extends javax.swing.JFrame {
         jTBLDates.getColumnModel().getColumn(0).setMinWidth(0);
         jTBLDates.getColumnModel().getColumn(0).setMaxWidth(0);
         jTBLDates.getColumnModel().getColumn(0).setWidth(0);
-         //hiding the ID Column
+        //hiding the ID Column
     }
 
     ////////////////////////---------UpcomingDates----------////////////////
     
-    
         
+        
+    ////////////////////////---------SubjectComments----------////////////////
+    private void loadSubjectCommentLearnerViewTable() {
+         modelSubjectCommentLearnerView = new DefaultTableModel(
+                new Object[]{"First Name", "Surname", "Gender", "E-class", "Grade", "PAT Mark", "FAT Mark"}, 0);
+
+        jTableSubjectCommentLearnerView.setModel(modelSubjectCommentLearnerView);
+        TableColumn genderColumn = jTableSubjectCommentLearnerView.getColumnModel().getColumn(2);
+        JComboBox<String> genderCombo = new JComboBox<>(new String[]{"He", "She"});
+        genderColumn.setCellEditor(new DefaultCellEditor(genderCombo));
+        
+    }
     
+    ////////////////////////---------SubjectComments----------////////////////
+
     ////////////////////////---------Registration----------////////////////
     private void MarkPresent() {
         int[] selectedRows = tblLearners.getSelectedRows();
@@ -521,7 +541,9 @@ public class A1GUI extends javax.swing.JFrame {
     //
     private void functionToRunMarksIcon() {
         System.out.println("Marks function called");
-        // Your marks function implementation here
+        showPanel("subjectComments");
+        //load jtable here
+
     }
 
     /////////////////// /////////////////// ///////////////////
@@ -705,6 +727,27 @@ public class A1GUI extends javax.swing.JFrame {
         jTXAInfo = new javax.swing.JTextArea();
         jPanel10 = new javax.swing.JPanel();
         jBTConfirmAddDate = new javax.swing.JButton();
+        dialogAddSubjectCommentLearner = new javax.swing.JDialog();
+        jPanel13 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jPanel14 = new javax.swing.JPanel();
+        txfSubjectCommentLearnerSurname = new javax.swing.JTextField();
+        txfSubjectCommentLearnerEClass = new javax.swing.JSpinner();
+        txfSubjectCommentLearnerFAT = new javax.swing.JTextField();
+        txfSubjectCommentLearnerPAT = new javax.swing.JTextField();
+        jCBAcademicContentCurrent = new javax.swing.JComboBox<>();
+        jCBAcademicContentNext = new javax.swing.JComboBox<>();
+        txfSubjectCommentLearnerGrade = new javax.swing.JSpinner();
+        txfSubjectCommentLearnerName = new javax.swing.JTextArea();
+        dialogAddSubjectCommentLearnerConfirm = new javax.swing.JButton();
+        jScrollPane9 = new javax.swing.JScrollPane();
         Menu = new javax.swing.JPanel();
         MenuBar = new javax.swing.JPanel();
         lineShowHide = new javax.swing.JPanel();
@@ -745,6 +788,12 @@ public class A1GUI extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         btnAddLearner = new javax.swing.JButton();
         btnRemoveLearner = new javax.swing.JButton();
+        contentPanelSubjectComments = new javax.swing.JPanel();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        jTableSubjectCommentLearnerView = new javax.swing.JTable();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jToggleButton2 = new javax.swing.JToggleButton();
+        jToggleButton3 = new javax.swing.JToggleButton();
         contentPanelRegistrationPage = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblLearners = new javax.swing.JTable();
@@ -983,6 +1032,184 @@ public class A1GUI extends javax.swing.JFrame {
 
         dialogAddUpcomingDate.getContentPane().add(jPanel10);
         jPanel10.setBounds(0, 250, 0, 70);
+
+        dialogAddSubjectCommentLearner.setMinimumSize(new java.awt.Dimension(637, 507));
+
+        jPanel13.setOpaque(false);
+
+        jLabel12.setText("Learners Name");
+
+        jLabel13.setText("Learners Surname");
+
+        jLabel15.setText("FAT Marks: ");
+
+        jLabel17.setText("PAT Marks: ");
+
+        jLabel16.setText("E-Class");
+
+        jLabel18.setText("Academic Content Covered:");
+
+        jLabel19.setText("Academic Content To Cover: : ");
+
+        jLabel20.setText("Grade");
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel18)
+                    .addComponent(jLabel19)
+                    .addComponent(jLabel20))
+                .addContainerGap(134, Short.MAX_VALUE))
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel12)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel13)
+                .addGap(29, 29, 29)
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel20)
+                .addGap(9, 9, 9)
+                .addComponent(jLabel17)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel18)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel19)
+                .addGap(18, 18, 18))
+        );
+
+        jPanel14.setOpaque(false);
+
+        txfSubjectCommentLearnerSurname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfSubjectCommentLearnerSurnameActionPerformed(evt);
+            }
+        });
+
+        txfSubjectCommentLearnerEClass.setModel(new javax.swing.SpinnerListModel(new String[] {"1", "2", "3", "4", "5"}));
+
+        txfSubjectCommentLearnerPAT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfSubjectCommentLearnerPATActionPerformed(evt);
+            }
+        });
+
+        jCBAcademicContentCurrent.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jCBAcademicContentNext.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        txfSubjectCommentLearnerGrade.setModel(new javax.swing.SpinnerListModel(new String[] {"8", "9", "10", "11", "12"}));
+
+        txfSubjectCommentLearnerName.setColumns(20);
+        txfSubjectCommentLearnerName.setRows(5);
+        txfSubjectCommentLearnerName.setMaximumSize(new java.awt.Dimension(232, 84));
+        txfSubjectCommentLearnerName.setMinimumSize(new java.awt.Dimension(232, 84));
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txfSubjectCommentLearnerSurname)
+                            .addGroup(jPanel14Layout.createSequentialGroup()
+                                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txfSubjectCommentLearnerEClass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txfSubjectCommentLearnerPAT, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txfSubjectCommentLearnerFAT, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jCBAcademicContentCurrent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txfSubjectCommentLearnerGrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jCBAcademicContentNext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 148, Short.MAX_VALUE)))
+                        .addGap(99, 99, 99))
+                    .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addComponent(txfSubjectCommentLearnerName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txfSubjectCommentLearnerName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txfSubjectCommentLearnerSurname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txfSubjectCommentLearnerEClass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(txfSubjectCommentLearnerGrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txfSubjectCommentLearnerPAT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txfSubjectCommentLearnerFAT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCBAcademicContentCurrent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCBAcademicContentNext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(143, Short.MAX_VALUE))
+        );
+
+        dialogAddSubjectCommentLearnerConfirm.setText("jButton2");
+        dialogAddSubjectCommentLearnerConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dialogAddSubjectCommentLearnerConfirmActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout dialogAddSubjectCommentLearnerLayout = new javax.swing.GroupLayout(dialogAddSubjectCommentLearner.getContentPane());
+        dialogAddSubjectCommentLearner.getContentPane().setLayout(dialogAddSubjectCommentLearnerLayout);
+        dialogAddSubjectCommentLearnerLayout.setHorizontalGroup(
+            dialogAddSubjectCommentLearnerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogAddSubjectCommentLearnerLayout.createSequentialGroup()
+                .addGroup(dialogAddSubjectCommentLearnerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(dialogAddSubjectCommentLearnerLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(dialogAddSubjectCommentLearnerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(dialogAddSubjectCommentLearnerLayout.createSequentialGroup()
+                        .addGap(189, 189, 189)
+                        .addComponent(dialogAddSubjectCommentLearnerConfirm)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        dialogAddSubjectCommentLearnerLayout.setVerticalGroup(
+            dialogAddSubjectCommentLearnerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogAddSubjectCommentLearnerLayout.createSequentialGroup()
+                .addGroup(dialogAddSubjectCommentLearnerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(dialogAddSubjectCommentLearnerLayout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(dialogAddSubjectCommentLearnerLayout.createSequentialGroup()
+                        .addGroup(dialogAddSubjectCommentLearnerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(dialogAddSubjectCommentLearnerLayout.createSequentialGroup()
+                                .addGap(64, 64, 64)
+                                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(dialogAddSubjectCommentLearnerLayout.createSequentialGroup()
+                                .addGap(34, 34, 34)
+                                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 38, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addComponent(dialogAddSubjectCommentLearnerConfirm)
+                .addGap(16, 16, 16))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Get it!");
@@ -1339,6 +1566,71 @@ public class A1GUI extends javax.swing.JFrame {
         );
 
         ContentPanel.add(contentPanelClassLists, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1030, 680));
+
+        jTableSubjectCommentLearnerView.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "First Name", "Surname", "Gender", "PAT", "FAT"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane10.setViewportView(jTableSubjectCommentLearnerView);
+
+        jToggleButton1.setText("jToggleButton1");
+
+        jToggleButton2.setText("jToggleButton1");
+
+        jToggleButton3.setText("Add Learners");
+        jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout contentPanelSubjectCommentsLayout = new javax.swing.GroupLayout(contentPanelSubjectComments);
+        contentPanelSubjectComments.setLayout(contentPanelSubjectCommentsLayout);
+        contentPanelSubjectCommentsLayout.setHorizontalGroup(
+            contentPanelSubjectCommentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentPanelSubjectCommentsLayout.createSequentialGroup()
+                .addContainerGap(146, Short.MAX_VALUE)
+                .addGroup(contentPanelSubjectCommentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jToggleButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jToggleButton2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jToggleButton3, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 747, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
+        );
+        contentPanelSubjectCommentsLayout.setVerticalGroup(
+            contentPanelSubjectCommentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contentPanelSubjectCommentsLayout.createSequentialGroup()
+                .addGroup(contentPanelSubjectCommentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(contentPanelSubjectCommentsLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(contentPanelSubjectCommentsLayout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(jToggleButton3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jToggleButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jToggleButton2)))
+                .addContainerGap(29, Short.MAX_VALUE))
+        );
+
+        ContentPanel.add(contentPanelSubjectComments, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1030, 680));
 
         tblLearners.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1823,6 +2115,76 @@ public class A1GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBTDeleteDateActionPerformed
 
+    private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
+            dialogAddSubjectCommentLearner.setVisible(true);
+            
+    }//GEN-LAST:event_jToggleButton3ActionPerformed
+
+    private void txfSubjectCommentLearnerSurnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfSubjectCommentLearnerSurnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfSubjectCommentLearnerSurnameActionPerformed
+
+    private void txfSubjectCommentLearnerPATActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfSubjectCommentLearnerPATActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfSubjectCommentLearnerPATActionPerformed
+
+    private void dialogAddSubjectCommentLearnerConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dialogAddSubjectCommentLearnerConfirmActionPerformed
+
+        String learnerNames = txfSubjectCommentLearnerName.getText();
+        String learnerSurname = txfSubjectCommentLearnerSurname.getText();
+        String learnerEClass = txfSubjectCommentLearnerEClass.getValue().toString(); //same per class
+        String learnerPATMark = txfSubjectCommentLearnerPAT.getText();
+        String learnerFATMark = txfSubjectCommentLearnerFAT.getText();
+        String acConCurrent = jCBAcademicContentCurrent.getSelectedItem().toString();
+        String acConNext = jCBAcademicContentNext.getSelectedItem().toString();
+        String grade = txfSubjectCommentLearnerGrade.getValue().toString();
+
+        //validate the data before parsing
+        
+        // Validate each input
+        if (!StudentReader.isSingleColumnPaste(learnerNames) || learnerNames.length() == 0) {
+            JOptionPane.showMessageDialog(this, "Learner names must be a single column.");
+            return;
+        }
+        if (!StudentReader.isSingleColumnPaste(learnerSurname) || learnerSurname.length() == 0) {
+            JOptionPane.showMessageDialog(this, "Learner surnames must be a single column, or must contain data.");
+            return;
+        }
+        if (!StudentReader.isSingleColumnPaste(learnerPATMark) || learnerPATMark.length() == 0) {
+            JOptionPane.showMessageDialog(this, "PAT marks must be a single column, or must contain data.");
+            return;
+        }
+        if (!StudentReader.isSingleColumnPaste(learnerFATMark) || learnerFATMark.length() == 0) {
+            JOptionPane.showMessageDialog(this, "FAT marks must be a single column, or must contain data.");
+            return;
+        }
+        
+        
+        
+
+        // Parse into lists
+        List<String> namesList = Arrays.asList(learnerNames.split("\\r?\\n|\\t"));
+        List<String> surnameList = Arrays.asList(learnerSurname.split("\\r?\\n|\\t"));
+        List<String> patList = Arrays.asList(learnerPATMark.split("\\r?\\n|\\t"));
+        List<String> fatList = Arrays.asList(learnerFATMark.split("\\r?\\n|\\t"));
+        
+        System.out.println("namesList: "+namesList.toString());
+        
+   
+        for (int i = 0; i < namesList.size(); i++) {
+            modelSubjectCommentLearnerView.addRow(new Object[]{
+                namesList.get(i),
+                surnameList.get(i),
+                "", // Gender empty for now
+                learnerEClass,
+                grade,
+                patList.get(i),
+                fatList.get(i)
+            });
+        }
+
+    }//GEN-LAST:event_dialogAddSubjectCommentLearnerConfirmActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1876,7 +2238,10 @@ public class A1GUI extends javax.swing.JFrame {
     private javax.swing.JPanel contentPanelClassLists;
     private javax.swing.JPanel contentPanelHomePage;
     private javax.swing.JPanel contentPanelRegistrationPage;
+    private javax.swing.JPanel contentPanelSubjectComments;
     private javax.swing.JDialog dialogAddLearner;
+    private javax.swing.JDialog dialogAddSubjectCommentLearner;
+    private javax.swing.JButton dialogAddSubjectCommentLearnerConfirm;
     private javax.swing.JDialog dialogAddUpcomingDate;
     private javax.swing.JTextField dialogLearnersName;
     private javax.swing.JTextField dialogLearnersSurname;
@@ -1894,11 +2259,21 @@ public class A1GUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JComboBox<String> jCBAcademicContentCurrent;
+    private javax.swing.JComboBox<String> jCBAcademicContentNext;
     private com.toedter.calendar.JDateChooser jDCDate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1914,6 +2289,8 @@ public class A1GUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -1922,6 +2299,7 @@ public class A1GUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -1929,12 +2307,17 @@ public class A1GUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSpinner jSpinGrade;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JSpinner jSpinner2;
     private javax.swing.JSpinner jSpinner3;
     private javax.swing.JTable jTBLDates;
     private javax.swing.JTextArea jTXAInfo;
+    private javax.swing.JTable jTableSubjectCommentLearnerView;
+    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JToggleButton jToggleButton2;
+    private javax.swing.JToggleButton jToggleButton3;
     private javax.swing.JLabel labelIconHome;
     private javax.swing.JLabel labelIconLearners;
     private javax.swing.JLabel labelIconMarks;
@@ -1961,5 +2344,11 @@ public class A1GUI extends javax.swing.JFrame {
     private javax.swing.JTable tableGrade9;
     private javax.swing.JTable tblLearners;
     private javax.swing.JPanel todoPanel;
+    private javax.swing.JSpinner txfSubjectCommentLearnerEClass;
+    private javax.swing.JTextField txfSubjectCommentLearnerFAT;
+    private javax.swing.JSpinner txfSubjectCommentLearnerGrade;
+    private javax.swing.JTextArea txfSubjectCommentLearnerName;
+    private javax.swing.JTextField txfSubjectCommentLearnerPAT;
+    private javax.swing.JTextField txfSubjectCommentLearnerSurname;
     // End of variables declaration//GEN-END:variables
 }

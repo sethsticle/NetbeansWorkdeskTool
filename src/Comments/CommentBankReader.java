@@ -20,6 +20,7 @@ public class CommentBankReader {
      * @param filePath Path to commentBank.json
      * @throws IOException If file reading or parsing fails
      */
+    
     public CommentBankReader(String filePath) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         commentBank = mapper.readValue(
@@ -27,7 +28,6 @@ public class CommentBankReader {
                 new TypeReference<Map<String, Map<String, String>>>() {
         }
         );
-
     }
 
     public void debugPrint() {
