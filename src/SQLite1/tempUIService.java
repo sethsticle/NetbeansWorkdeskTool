@@ -8,7 +8,7 @@ import java.util.List;
  *
  * @author SETH.H
  */
-public class tempValidationUI {
+public class tempUIService {
      public static boolean isSingleColumnPaste(String input) {
         // Remove trailing/leading whitespace
         String trimmed = input.trim();
@@ -33,4 +33,5 @@ public class tempValidationUI {
         return rows;
     }
 
+   
 }

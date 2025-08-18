@@ -1,4 +1,4 @@
-
+ 
 package SQLite1;
 
 import java.sql.*;
@@ -64,6 +64,8 @@ public class dbUtils {
         }
         return results;
     }
+    
+    
     
     //--- PARAMETER BINDING ---///
     private static void setParameters(PreparedStatement stmt, Object... params) throws SQLException {
